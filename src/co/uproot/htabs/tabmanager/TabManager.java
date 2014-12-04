@@ -348,7 +348,7 @@ public class TabManager {
           showCollapseButton();
         }
       } else {
-        hideCollapseButton();
+        // hideCollapseButton();
         super.setBounds(x, y, width, height);
       }
     }
@@ -507,28 +507,53 @@ public class TabManager {
         g2.setStroke(new BasicStroke(2));
         g2.setColor(Color.BLACK);
 
-        g2.fill(collapsed ? collapsedPolygon : normalPolygon);
+        final GeneralPath button = makePolygon(collapsed);
+        g2.fill(button);
+        // g2.fill(collapsed ? collapsedPolygon : normalPolygon);
         g2.dispose();
       }
 
       private GeneralPath makePolygon(final boolean collapsed) {
         final ArrayList<Integer> xPoints = new ArrayList<>();
         final ArrayList<Integer> yPoints = new ArrayList<>();
+        final int placement = tabbedPane.getTabPlacement();
 
         if (collapsed) {
-          xPoints.add(0);
-          xPoints.add(6);
-          xPoints.add(0);
-          yPoints.add(2);
-          yPoints.add(8);
-          yPoints.add(14);
+          if (placement == JTabbedPane.LEFT) {
+            xPoints.add(0);
+            xPoints.add(6);
+            xPoints.add(0);
+            yPoints.add(2);
+            yPoints.add(8);
+            yPoints.add(14);
+          } else {
+            xPoints.add(7);
+            xPoints.add(9);
+            xPoints.add(9);
+            xPoints.add(7);
+            yPoints.add(2);
+            yPoints.add(2);
+            yPoints.add(14);
+            yPoints.add(14);
+          }
         } else {
-          xPoints.add(0);
-          xPoints.add(6);
-          xPoints.add(12);
-          yPoints.add(6);
-          yPoints.add(12);
-          yPoints.add(6);
+          if (placement == JTabbedPane.LEFT) {
+            xPoints.add(0);
+            xPoints.add(6);
+            xPoints.add(12);
+            yPoints.add(6);
+            yPoints.add(12);
+            yPoints.add(6);
+          } else {
+            xPoints.add(1);
+            xPoints.add(15);
+            xPoints.add(15);
+            xPoints.add(1);
+            yPoints.add(2);
+            yPoints.add(2);
+            yPoints.add(14);
+            yPoints.add(14);
+          }
         }
         final GeneralPath polygon = new GeneralPath(Path2D.WIND_EVEN_ODD, xPoints.size());
         polygon.moveTo(xPoints.get(0), yPoints.get(0));
