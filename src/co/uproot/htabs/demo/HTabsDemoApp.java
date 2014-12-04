@@ -23,6 +23,7 @@ package co.uproot.htabs.demo;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -51,6 +52,7 @@ import javax.swing.event.ChangeListener;
 
 import co.uproot.htabs.custom.tabbedpane.CustomTabbedPane;
 import co.uproot.htabs.demo.components.ColoredIcon;
+import co.uproot.htabs.demo.components.DemoTabContentPane;
 import co.uproot.htabs.demo.components.DummyIcon;
 import co.uproot.htabs.tabmanager.TabManager;
 import co.uproot.htabs.tabmanager.TabManager.Tab;
@@ -218,7 +220,7 @@ public class HTabsDemoApp {
       final ColoredIcon icon = new ColoredIcon(color);
       final boolean root = random.nextDouble() > 0.7d;
       final int prevTab = random.nextInt(i + 1);
-      final JPanel tabContent = createTabContent("<html><center>Content of tab<p><big><b>" + i + "</b></big></p></center></html>");
+      final JPanel tabContent = new DemoTabContentPane("" + i, 0, 0, tabManager);// createTabContent("<html><center>Content of tab<p><big><b>" + i + "</b></big></p></center></html>");
       if (root || (prevTab == i)) {
         tabs[i] = tabManager.addTab("Tab " + i, icon, tabContent);
       } else {
@@ -234,6 +236,15 @@ public class HTabsDemoApp {
         updateStatus(status, statusText);
       }
     });
+
+    /*
+    final Component c1 = tabbedPane.add("title", new JLabel("hello"));
+    final int ind = tabbedPane.indexOfComponent(c1);
+    tabbedPane.setTabComponentAt(ind, new JLabel("new Tab Component"));
+    tabbedPane.setTitleAt(ind, "title");
+    tabbedPane.setIconAt(ind, new ColoredIcon(new Color(10, 10, 10, 190)));
+    tabbedPane.setTabComponentAt(ind, null);
+    */
 
     f.add(topBar, BorderLayout.NORTH);
     f.add(statusBar, BorderLayout.SOUTH);
